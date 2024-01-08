@@ -1,4 +1,4 @@
 package com.sp.healthease;
 
-public class tetwata {
+public class Registration {
 }
