@@ -8,6 +8,16 @@
     tools:context=".Registration">
 
     <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="163dp"
+        android:layout_height="149dp"
+        android:layout_marginTop="80dp"
+        android:src="@drawable/icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/imageView"
         android:layout_width="63dp"
         android:layout_height="63dp"
@@ -17,15 +27,74 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/medicalteam" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/Doc_signup"
         android:layout_width="241dp"
         android:layout_height="55dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="272dp"
+        android:backgroundTint="#FFFFFF"
         android:text="Sign-up as Doctor"
-        android:background="@drawable/button_outline"
         android:textColor="#000000"
         app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeColor="#837D7D"
+        app:strokeWidth="2dp" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/patient"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/Patient_signup"
+        android:layout_width="241dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="48dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Sign-up as Patient"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintTop_toBottomOf="@+id/Doc_signup"
+        app:strokeColor="#837D7D"
+        app:strokeWidth="2dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="173dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="88dp"
+        android:layout_marginBottom="120dp"
+        android:text="Already have an account?"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Patient_signup"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:layout_width="107dp"
+        android:layout_height="39dp"
+        android:layout_marginLeft="-20dp"
+        android:layout_marginTop="152dp"
+        android:backgroundTint="#FFFFFF"
+        android:text="Sign in"
+        android:textAlignment="viewStart"
+        android:textAllCaps="false"
+        android:textColor="#000000"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.093"
+        app:layout_constraintStart_toEndOf="@+id/textView"
+        app:layout_constraintTop_toBottomOf="@+id/Patient_signup"
+        app:layout_constraintVertical_bias="0.0" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
