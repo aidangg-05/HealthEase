@@ -7,4 +7,25 @@
     android:background="@drawable/regisration0"
     tools:context=".Registration">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="63dp"
+        android:layout_height="63dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="272dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/medicalteam" />
+
+    <Button
+        android:id="@+id/Doc_signup"
+        android:layout_width="241dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="272dp"
+        android:text="Sign-up as Doctor"
+        android:background="@drawable/button_outline"
+        android:textColor="#000000"
+        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
