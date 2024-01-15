@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "866180427837",
+    "project_id": "healthease-218d4",
+    "storage_bucket": "healthease-218d4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:866180427837:android:2d9be32b64983c0af2fa54",
+        "android_client_info": {
+          "package_name": "com.sp.healthease"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBLj4vgkosj_W6ZFtEqV65ozCn0VAVtXpk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
