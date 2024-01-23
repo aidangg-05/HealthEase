@@ -15,13 +15,15 @@ public class Signup_patient_2 extends AppCompatActivity {
     TextInputEditText fullnamep;
     TextInputEditText telegramidp;
     TextInputEditText agep;
+    PatientData patientData; // Declare it here
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_upfor_patients_pt2);
 
-        PatientData patientData = (PatientData) getIntent().getSerializableExtra("patientData");
+        // Retrieve the PatientData object from the intent
+        patientData = (PatientData) getIntent().getSerializableExtra("patientData");
 
         fullnamep = findViewById(R.id.fullname_signup_patient);
         telegramidp = findViewById(R.id.telegramid_signup_patient);
@@ -36,8 +38,10 @@ public class Signup_patient_2 extends AppCompatActivity {
                 String telegramid = telegramidp.getText().toString();
                 String age = agep.getText().toString();
 
-                // Create a PatientData object and set the values
-                PatientData patientData = new PatientData(fullname,null, null, age, telegramid, null, null);
+                // Update the existing PatientData object with new values
+                patientData.setFullName(fullname);
+                patientData.setTelegram(telegramid);
+                patientData.setAge(age);
 
                 // Log the data for verification (you can remove this in the final version)
                 Log.d("PatientData", "FullName: " + patientData.getFullName() + ", Email: " + patientData.getEmail() + ", Password: " + patientData.getPassword() + ", Age: " + patientData.getAge() + ", Telegram: " + patientData.getTelegram() );
@@ -49,3 +53,4 @@ public class Signup_patient_2 extends AppCompatActivity {
         });
     }
 }
+
