@@ -25,6 +25,14 @@ public class Registration extends AppCompatActivity {
         MaterialButton doctorbutton = findViewById(R.id.Doc_signup);
         MaterialButton patientbutton = findViewById(R.id.Patient_signup);
 
+        doctorbutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Registration.this,Signup_doctor1.class);
+                startActivity(intent);
+            }
+        });
+
         patientbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -33,4 +41,5 @@ public class Registration extends AppCompatActivity {
             }
         });
     }
+
 }

@@ -22,6 +22,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Signup_patient_1"></activity>
+        <activity android:name="Signup_doctor1"></activity>
     </application>
 
 </manifest>
