@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/regisration0"
-    tools:context=".Registration">
+    tools:context=".Registration"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="-22dp">
 
     <ImageView
         android:id="@+id/imageView3"
@@ -69,7 +71,7 @@
         android:id="@+id/textView"
         android:layout_width="173dp"
         android:layout_height="23dp"
-        android:layout_marginStart="76dp"
+        android:layout_marginStart="80dp"
         android:layout_marginBottom="120dp"
         android:text="Already have an account?"
         android:textAlignment="center"
@@ -77,7 +79,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Patient_signup"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.867" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/signin_layout_button"
@@ -94,6 +96,6 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.783" />
+        app:layout_constraintVertical_bias="0.806" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
