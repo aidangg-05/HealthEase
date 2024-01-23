@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">HealthEase</string>
+    <string-array name="blood_group_options">
+        <item>A</item>
+        <item>A+</item>
+    </string-array>
 </resources>

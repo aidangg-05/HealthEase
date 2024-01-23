@@ -2,72 +2,42 @@ package com.sp.healthease;
 
 import android.os.Bundle;
 import android.util.Log;
-
+import android.view.View;
+import android.widget.Button;
+import com.google.android.material.textfield.TextInputEditText;
 import androidx.appcompat.app.AppCompatActivity;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
+import android.content.Intent;
 
 public class Signup_patient_1 extends AppCompatActivity {
+    TextInputEditText emailp;
+    TextInputEditText passwordp;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_upfor_patients);
 
-        // Assuming you have set up your Airtable base and obtained the API key, base ID, and table name
-        String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
-        String baseId = "appDrji84bd55oOkv";
-        String tableName = "Patient Registration";
+        emailp = findViewById(R.id.email_signup_patient);
+        passwordp = findViewById(R.id.password_signup_patient);
 
-        writeSampleUser(apiKey, baseId, tableName);
-    }
-
-    private void writeSampleUser(String apiKey, String baseId, String tableName) {
-        // Construct the Airtable API endpoint
-        String endpoint = "https://api.airtable.com/v0/" + baseId + "/" + tableName;
-
-        // Construct the request body with user data
-        RequestBody requestBody = new FormBody.Builder()
-                .add("fields[Email]", "johndoe@email.com")
-                .add("fields[Password]", "userpassword")
-                .build();
-
-        // Make the POST request to Airtable
-        Request request = new Request.Builder()
-                .url(endpoint)
-                .header("Authorization", "Bearer " + apiKey)
-                .post(requestBody)
-                .build();
-
-        // Execute the request asynchronously (using Retrofit or OkHttp)
-        // Note: In a production app, use a library like Retrofit or OkHttp for better handling.
-        // This example uses OkHttp for simplicity.
-        // Ensure you handle network operations on a separate thread or use AsyncTask.
-
-        // Example with OkHttp (execute the request asynchronously)
-        OkHttpClient client = new OkHttpClient();
-        client.newCall(request).enqueue(new Callback() {
+        Button nextButton = findViewById(R.id.next_button_patient0);
+        nextButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onFailure(Call call, IOException e) {
-                // Handle failure
-                Log.e("Airtable", "Error writing user", e);
-            }
+            public void onClick(View view) {
+                // Obtain values from input fields when the button is clicked
+                String email = emailp.getText().toString();
+                String password = passwordp.getText().toString();
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                // Handle success
-                if (response.isSuccessful()) {
-                    Log.d("Airtable", "User added successfully");
-                } else {
-                    Log.e("Airtable", "Error writing user: " + response.code());
-                }
+
+                // Create a PatientData object and set the values
+                PatientData patientData = new PatientData(null,email, password, null, null, null, null);
+
+                // Log the data for verification (you can remove this in the final version)
+                Log.d("PatientData", "Email: " + patientData.getEmail() + ", Password: " + patientData.getPassword());
+
+                Intent intent = new Intent(Signup_patient_1.this, Signup_patient_2.class);
+                intent.putExtra("patientData", patientData);
+                startActivity(intent);
             }
         });
     }
