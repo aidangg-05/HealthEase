@@ -77,7 +77,7 @@
         tools:ignore="MissingConstraints" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/next_button_doc"
+        android:id="@+id/next_button_doc0"
         android:layout_width="200dp"
         android:layout_height="54dp"
         android:layout_marginBottom="104dp"

@@ -20,4 +20,102 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/y3"
+        android:layout_width="190dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="148dp"
+        android:text="Full Name:"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/fullname_signup_patient"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:background="#F6F1F1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/y3"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <TextView
+        android:id="@+id/t6"
+        android:layout_width="190dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="280dp"
+        android:text="Telegram ID:"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/telegramid_signup_patient"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:background="#F6F1F1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/t6"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <TextView
+        android:id="@+id/y6"
+        android:layout_width="190dp"
+        android:layout_height="37dp"
+        android:layout_marginTop="412dp"
+        android:text="Age:"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.135"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/age_signup_patient"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="16dp"
+        android:background="#F6F1F1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.597"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/y6"
+        app:shapeAppearanceOverlay="@style/RoundedCorners"
+        app:strokeColor="@color/black"
+        app:strokeWidth="2dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/next_button_patient1"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:backgroundTint="@color/cardview_light_background"
+        android:text="NEXT -->"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.872" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

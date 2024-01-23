@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/greenballs">
+    android:background="@drawable/yellowballs"
+    tools:layout_editor_absoluteX="2dp"
+    tools:layout_editor_absoluteY="-11dp">
 
     <TextView
         android:id="@+id/ViewTXT69"
@@ -19,5 +22,69 @@
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/m6"
+        android:layout_width="207dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="204dp"
+        android:text="Blood Group:"
+        android:textColor="@color/black"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.166"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Spinner
+        android:id="@+id/dropdown_bloodgroupPatient"
+        android:layout_width="344dp"
+        android:layout_height="54dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:background="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.507"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m6" />
+
+    <TextView
+        android:id="@+id/mlk5"
+        android:layout_width="221dp"
+        android:layout_height="33dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="124dp"
+        android:text="Upload Health Cert:"
+        android:textColor="@color/black"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/m6" />
+
+    <ImageView
+        android:id="@+id/patient_healthCert"
+        android:layout_width="222dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/white"
+        android:src="@drawable/baseline_file_upload_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mlk5" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/submit_button_patient"
+        android:layout_width="200dp"
+        android:layout_height="54dp"
+        android:layout_marginBottom="96dp"
+        android:backgroundTint="@color/cardview_light_background"
+        android:text="SUBMIT"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
