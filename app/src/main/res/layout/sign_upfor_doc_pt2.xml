@@ -45,7 +45,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tt"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:entries="@array/field_options" />
 
     <TextView
         android:id="@+id/ttaidan"
@@ -71,7 +72,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ttaidan"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        android:entries="@array/clinic_options" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button_doc1"

@@ -1,5 +1,6 @@
 package com.sp.healthease;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,6 +57,9 @@ public class Signup_patient_3 extends AppCompatActivity {
 
                 // Call the function to write data to Airtable
                 writeSampleUser(apiKey, baseId, tableName, patientData);
+
+                Intent intent = new Intent(Signup_patient_3.this, Registration.class);
+                startActivity(intent);
             }
         });
     }
