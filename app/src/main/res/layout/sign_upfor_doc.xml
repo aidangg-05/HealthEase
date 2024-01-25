@@ -42,14 +42,14 @@
         android:layout_width="344dp"
         android:layout_height="54dp"
         android:layout_marginTop="16dp"
-        android:background="#F6F1F1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.597"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textV11"
-        app:shapeAppearanceOverlay="@style/RoundedCorners"
-        app:strokeColor="@color/black"
-        app:strokeWidth="2dp" />
+        android:background="@drawable/rounded_edittext"
+        android:elevation="10dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.597"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textV11"
+    app:strokeColor="@color/black"
+    app:strokeWidth="2dp" />
 
     <TextView
         android:id="@+id/textView4"
@@ -69,14 +69,15 @@
         android:layout_width="344dp"
         android:layout_height="54dp"
         android:layout_marginTop="16dp"
-        android:background="#F6F1F1"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.597"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4"
-        app:strokeColor="@color/black"
-        app:strokeWidth="2dp"
-        tools:ignore="MissingConstraints" />
+        android:background="@drawable/rounded_edittext"
+        android:elevation="10dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.597"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView4"
+    app:strokeColor="@color/black"
+    app:strokeWidth="2dp"
+    tools:ignore="MissingConstraints" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/next_button_doc0"
