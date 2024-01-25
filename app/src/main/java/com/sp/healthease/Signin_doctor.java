@@ -109,7 +109,7 @@ public class Signin_doctor extends AppCompatActivity {
                                 if (email.equals(recordEmail) && password.equals(recordPassword)) {
                                     // Authentication successful, navigate to the next activity
                                     runOnUiThread(() -> {
-                                        Intent intent = new Intent(Signin_doctor.this, Home_patient.class);
+                                        Intent intent = new Intent(Signin_doctor.this, Home_doctor.class);
                                         startActivity(intent);
                                         finish(); // Finish the current activity
                                     });

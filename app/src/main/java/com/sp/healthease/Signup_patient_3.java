@@ -58,7 +58,7 @@ public class Signup_patient_3 extends AppCompatActivity {
                 // Call the function to write data to Airtable
                 writeSampleUser(apiKey, baseId, tableName, patientData);
 
-                Intent intent = new Intent(Signup_patient_3.this, Registration.class);
+                Intent intent = new Intent(Signup_patient_3.this, SplashScreen.class);
                 startActivity(intent);
             }
         });
