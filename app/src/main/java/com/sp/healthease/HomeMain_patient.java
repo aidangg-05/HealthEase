@@ -41,7 +41,13 @@ public class HomeMain_patient extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_home_main_patient, container, false);
 
         // Retrieve email from arguments
-        String userEmail = getArguments().getString("userEmail");
+        String userEmail = "";
+        Bundle args = getArguments();
+        if (args != null) {
+            userEmail = args.getString("userEmail");
+        } else {
+            Log.e("Home_patient", "Arguments are null");
+        }
 
         // Log userEmail for debugging
         Log.d("Home_patient", "User Email: " + userEmail);

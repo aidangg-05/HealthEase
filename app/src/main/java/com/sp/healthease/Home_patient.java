@@ -51,6 +51,4 @@ public class Home_patient extends AppCompatActivity {
         fragmentTransaction.replace(R.id.patient_framelayout,fragment);
         fragmentTransaction.commit();
     }
-
-
 }
