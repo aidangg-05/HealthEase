@@ -30,6 +30,7 @@
         <activity android:name=".Signin"></activity>
         <activity android:name=".Signin_Patient"></activity>
         <activity android:name=".Home_patient"></activity>
+        <activity android:name=".SplashScreen"></activity>
     </application>
 
 </manifest>
