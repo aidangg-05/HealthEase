@@ -102,9 +102,23 @@
 
                         <TextView
                             android:id="@+id/appoint_clinic"
-                            android:layout_width="137dp"
-                            android:layout_height="89dp"
-                            android:layout_marginTop="8dp"
+                            android:layout_width="145dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="4dp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="@color/black"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.968"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/appoint_doctor_name"
+                            android:layout_width="145dp"
+                            android:layout_height="45dp"
+                            android:layout_marginTop="64dp"
                             android:fontFamily="@font/montserrat_medium"
                             android:textColor="@color/black"
                             android:textSize="16sp"
