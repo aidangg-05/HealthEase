@@ -37,7 +37,7 @@ public class Home_patient extends AppCompatActivity {
             if(itemId == R.id.menu_home_patient){
                 replaceFragment(new HomeMain_patient());
             } else if (itemId == R.id.menu_book_patient) {
-                replaceFragment(new Patients_BookAppointment());
+                replaceFragment(new MapsFragment());
             } else if (itemId == R.id.menu_doc_patient) {
                 replaceFragment(new Patients_DoctorContact());
             } else if (itemId == R.id.menu_profile_patient) {

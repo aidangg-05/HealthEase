@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,6 +16,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HealthEase"
         tools:targetApi="31">
+
+        <!--
+             TODO: Before you run your application, you need a Google Maps API key.
+
+             To get one, follow the directions here:
+
+                https://developers.google.com/maps/documentation/android-sdk/get-api-key
+
+             Once you have your API key (it starts with "AIza"), define a new property in your
+             project's local.properties file (e.g. MAPS_API_KEY=Aiza...), and replace the
+             "YOUR_API_KEY" string in this file with "${MAPS_API_KEY}".
+        -->
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAyQln53WiDWpdWBCzjjsy8kTFee2JFmG4" />
+
         <activity
             android:name=".Registration"
             android:exported="true">
@@ -21,22 +41,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Signup_patient_1"></activity>
-        <activity android:name=".Signup_patient_2"></activity>
-        <activity android:name=".Signup_patient_3"></activity>
-        <activity android:name="Signup_doctor1"></activity>
-        <activity android:name="Signup_doctor2"></activity>
-        <activity android:name="Signup_doctor3"></activity>
-        <activity android:name=".Signin"></activity>
-        <activity android:name=".Signin_Patient"></activity>
-        <activity android:name=".Signin_doctor"></activity>
-        <activity android:name=".Home_patient"></activity>
-        <activity android:name=".Home_doctor"></activity>
-        <activity android:name=".SplashScreen"></activity>
-        <activity android:name=".appointmentPatient"></activity>
-        <activity android:name=".dietsPatients"></activity>
-        <activity android:name=".Patients_BookAppointment"></activity>
-        <activity android:name=".Patients_DoctorContact"></activity>
+        <activity android:name=".Signup_patient_1" />
+        <activity android:name=".Signup_patient_2" />
+        <activity android:name=".Signup_patient_3" />
+        <activity android:name=".Signup_doctor1" />
+        <activity android:name=".Signup_doctor2" />
+        <activity android:name=".Signup_doctor3" />
+        <activity android:name=".Signin" />
+        <activity android:name=".Signin_Patient" />
+        <activity android:name=".Signin_doctor" />
+        <activity android:name=".Home_patient" />
+        <activity android:name=".Home_doctor" />
+        <activity android:name=".SplashScreen" />
+        <activity android:name=".appointmentPatient" />
+        <activity android:name=".dietsPatients" />
+        <activity android:name=".Patients_BookAppointment" />
+        <activity android:name=".Patients_DoctorContact" />
     </application>
 
 </manifest>
