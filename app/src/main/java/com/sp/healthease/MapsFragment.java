@@ -88,6 +88,7 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
         );
         marker4.showInfoWindow();
         LatLng mid = new LatLng(1.3751315913986857, 103.81247420076069);
+        mMap.setOnMarkerClickListener(this);
         mMap.moveCamera(CameraUpdateFactory.newLatLng(mid));
     }
 }
