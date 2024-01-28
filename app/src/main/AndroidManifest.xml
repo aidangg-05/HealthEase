@@ -29,8 +29,14 @@
         <activity android:name="Signup_doctor3"></activity>
         <activity android:name=".Signin"></activity>
         <activity android:name=".Signin_Patient"></activity>
+        <activity android:name=".Signin_doctor"></activity>
         <activity android:name=".Home_patient"></activity>
+        <activity android:name=".Home_doctor"></activity>
         <activity android:name=".SplashScreen"></activity>
+        <activity android:name=".appointmentPatient"></activity>
+        <activity android:name=".dietsPatients"></activity>
+        <activity android:name=".Patients_BookAppointment"></activity>
+        <activity android:name=".Patients_DoctorContact"></activity>
     </application>
 
 </manifest>

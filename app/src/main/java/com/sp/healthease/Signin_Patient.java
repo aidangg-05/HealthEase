@@ -77,6 +77,8 @@ public class Signin_Patient extends AppCompatActivity {
             public void onFailure(Call call, IOException e) {
                 // Handle failure
                 Log.e("Airtable", "Error authenticating user", e);
+                Log.e("Airtable", "Error message: " + e.getMessage());
+
             }
 
             @Override
