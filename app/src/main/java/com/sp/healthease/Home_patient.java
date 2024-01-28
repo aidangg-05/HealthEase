@@ -2,17 +2,14 @@ package com.sp.healthease;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 import android.widget.TextView;
-
 import androidx.appcompat.app.AppCompatActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -20,6 +17,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import androidx.cardview.widget.CardView;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 public class Home_patient extends AppCompatActivity {
     @Override
@@ -35,6 +35,37 @@ public class Home_patient extends AppCompatActivity {
 
         // Fetch data based on userEmail and update the UI
         fetchDataAndUpdateUI(userEmail);
+
+        CardView appointmentCardView = findViewById(R.id.cardView_appointment);
+        CardView dietCardView = findViewById(R.id.cardView_diets);
+
+        appointmentCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigateToAppointment();
+            }
+        });
+
+        dietCardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                navigeateToDiets();
+            }
+        });
+    }
+
+    private void navigateToAppointment() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.patient_framelayout,new appointmentPatient());
+        fragmentTransaction.commit();
+    }
+
+    private void navigeateToDiets() {
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.patient_framelayout,new dietsPatients());
+        fragmentTransaction.commit();
     }
 
     private void fetchDataAndUpdateUI(String userEmail) {
