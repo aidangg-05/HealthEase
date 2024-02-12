@@ -73,7 +73,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/appoint_time"
+                            android:id="@+id/appoint_time_preview"
                             android:layout_width="161dp"
                             android:layout_height="53dp"
                             android:layout_marginTop="4dp"
@@ -87,7 +87,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/appoint_date"
+                            android:id="@+id/appoint_date_preview"
                             android:layout_width="175dp"
                             android:layout_height="48dp"
                             android:layout_marginTop="64dp"
@@ -101,7 +101,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/appoint_clinic"
+                            android:id="@+id/appoint_clinic_preview"
                             android:layout_width="145dp"
                             android:layout_height="45dp"
                             android:layout_marginTop="4dp"
@@ -115,7 +115,7 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/appoint_doctor_name"
+                            android:id="@+id/appoint_doctorName_preview"
                             android:layout_width="145dp"
                             android:layout_height="45dp"
                             android:layout_marginTop="64dp"
