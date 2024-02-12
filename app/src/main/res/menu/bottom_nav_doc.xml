@@ -14,11 +14,11 @@
         android:icon="@drawable/contact_icon"
         android:title="Patient"/>
     <item
-        android:id="@+id/menu_schedule_doc"
+        android:id="@+id/menu_requests_doc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/book_schedule_icon"
-        android:title="Schedule" />
+        android:title="Requests" />
     <item
         android:id="@+id/menu_profile_doc"
         android:layout_width="wrap_content"

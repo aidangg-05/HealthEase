@@ -4,35 +4,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Patients_DoctorContact">
+    tools:context=".DoctorPatientsDetails">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <androidx.cardview.widget.CardView
-            android:layout_width="386dp"
-            android:layout_height="603dp"
-            android:elevation="15dp"
+            android:layout_width="370dp"
+            android:layout_height="665dp"
+            android:elevation="30dp"
+            app:cardBackgroundColor="#FFFFFF"
             app:cardCornerRadius="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.48"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.125" >
+            app:layout_constraintTop_toTopOf="parent" >
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+
                 <TextView
-                    android:id="@+id/rrrr"
+                    android:id="@+id/ewofnownfo"
                     android:layout_width="172dp"
                     android:layout_height="36dp"
                     android:layout_marginTop="16dp"
                     android:fontFamily="@font/montserrat_medium"
-                    android:text="Doctor Contact:"
+                    android:text="Patients Details:"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold"
@@ -42,11 +43,11 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/docContact_patient"
-                    android:layout_width="321dp"
-                    android:layout_height="238dp"
-                    android:layout_marginTop="65dp"
-                    android:elevation="15dp"
+                    android:id="@+id/patients_info"
+                    android:layout_width="347dp"
+                    android:layout_height="263dp"
+                    android:layout_marginTop="72dp"
+                    android:elevation="30dp"
                     app:cardBackgroundColor="#FFDD77"
                     app:cardCornerRadius="8dp"
                     app:layout_constraintEnd_toEndOf="parent"
@@ -57,31 +58,60 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent">
 
+
                         <TextView
-                            android:id="@+id/DocContactName"
-                            android:layout_width="267dp"
-                            android:layout_height="61dp"
-                            android:layout_marginTop="16dp"
+                            android:id="@+id/PatientContactName"
+                            android:layout_width="324dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="4dp"
                             android:fontFamily="@font/montserrat_medium"
                             android:textColor="@color/black"
                             android:textSize="15dp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.454"
+                            app:layout_constraintHorizontal_bias="0.333"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
-                            android:id="@+id/DocTelegramID"
-                            android:layout_width="268dp"
-                            android:layout_height="63dp"
-                            android:layout_marginTop="84dp"
+                            android:id="@+id/PatientAge"
+                            android:layout_width="327dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="52dp"
                             android:fontFamily="@font/montserrat_medium"
                             android:textColor="@color/black"
                             android:textSize="15dp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.461"
+                            app:layout_constraintHorizontal_bias="0.384"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/PatientBloodGrp"
+                            android:layout_width="327dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="100dp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.38"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/PatientMedicalHist"
+                            android:layout_width="327dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="160dp"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:textColor="@color/black"
+                            android:textSize="15dp"
+                            android:textStyle="bold"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.4"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
@@ -89,20 +119,41 @@
                             android:id="@+id/ContactTeleDocButton"
                             android:layout_width="200dp"
                             android:layout_height="48dp"
-                            android:layout_marginTop="172dp"
+                            android:layout_marginTop="208dp"
                             android:backgroundTint="#FFFFFF"
                             android:elevation="15dp"
                             android:text="CONTACT"
                             android:textColor="@color/black"
                             app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.495"
+                            app:layout_constraintHorizontal_bias="0.496"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.cardview.widget.CardView>
 
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/patients_info1"
+                    android:layout_width="349dp"
+                    android:layout_height="239dp"
+                    android:layout_marginTop="380dp"
+                    android:elevation="30dp"
+                    app:cardBackgroundColor="#FFDD77"
+                    app:cardCornerRadius="8dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.cardview.widget.CardView>
+
+
             </androidx.constraintlayout.widget.ConstraintLayout>
+
         </androidx.cardview.widget.CardView>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
