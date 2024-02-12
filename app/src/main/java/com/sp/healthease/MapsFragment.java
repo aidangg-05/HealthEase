@@ -5,6 +5,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,13 +24,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     private GoogleMap mMap;
     private Marker marker;
 
+    @SuppressLint("MissingInflatedId")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater,
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
-
         return view;
     }
 
@@ -47,9 +49,13 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
         String markerTitle = marker.getTitle();
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction =fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.patient_framelayout,new Patients_BookAppointment());
+        Bundle bundle = new Bundle();
+        bundle.putString("markerTitle", markerTitle);
+        Patients_BookAppointment appointmentFragment = new Patients_BookAppointment();
+        appointmentFragment.setArguments(bundle); // Attach the bundle to the fragment
+        FragmentManager fragmentManager = getParentFragmentManager(); // Use getParentFragmentManager() for fragments
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.patient_framelayout, appointmentFragment);
         fragmentTransaction.commit();
         return true;
     }

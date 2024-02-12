@@ -55,30 +55,43 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/docinfo"
+                    android:layout_width="58dp"
+                    android:layout_height="61dp"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/doc_appointimg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/tituwiuh"
+                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/tituwiuh"
-                    android:layout_width="322dp"
-                    android:layout_height="39dp"
+                    android:layout_width="236dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="72dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:text="UPCOMING APPOINTMENTS"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.555" />
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/arrowappoint"
-                    android:layout_width="59dp"
-                    android:layout_height="58dp"
-                    android:src="@drawable/baseline_keyboard_arrow_right_24"
+                    android:layout_width="47dp"
+                    android:layout_height="46dp"
+                    android:src="@drawable/arrows"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="1.0"
+                    app:layout_constraintHorizontal_bias="0.981"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.36" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
@@ -99,24 +112,38 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
+                <ImageView
+                    android:id="@+id/docmessageinfo"
+                    android:layout_width="56dp"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="14dp"
+                    android:src="@drawable/doc_messagesimg"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/h87ehb"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.473" />
+
                 <TextView
                     android:id="@+id/h87ehb"
-                    android:layout_width="322dp"
-                    android:layout_height="39dp"
+                    android:layout_width="255dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="56dp"
                     android:fontFamily="@font/montserrat_medium"
                     android:text="MESSAGES"
                     android:textAlignment="center"
                     android:textColor="@color/black"
-                    android:textSize="24sp"
+                    android:textSize="18sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/arrowmessages1"
-                    android:layout_width="59dp"
-                    android:layout_height="58dp"
-                    android:src="@drawable/baseline_keyboard_arrow_right_24"
+                    android:layout_width="47dp"
+                    android:layout_height="46dp"
+                    android:src="@drawable/arrows"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="1.0"
