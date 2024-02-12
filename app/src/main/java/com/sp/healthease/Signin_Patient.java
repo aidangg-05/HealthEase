@@ -1,13 +1,22 @@
 package com.sp.healthease;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
+
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -15,12 +24,10 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import android.content.Intent;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 public class Signin_Patient extends AppCompatActivity {
+    private PatientData patientData;
+    private AppointmentData appointmentData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -121,7 +128,7 @@ public class Signin_Patient extends AppCompatActivity {
                                     // Check if the password matches
                                     if (password.equals(airtablePassword)) {
                                         // Create PatientData object and populate it with retrieved data
-                                        PatientData patientData = new PatientData(fullName, email, airtablePassword, age, telegram, bloodGroup, medicalHistory);
+                                        patientData = new PatientData(fullName, email, airtablePassword, age, telegram, bloodGroup, medicalHistory);
 
                                         // Inflate data to PatientData class
                                         inflateData(patientData);
@@ -206,7 +213,7 @@ public class Signin_Patient extends AppCompatActivity {
                             // Compare patientName with fullName
                             if (fullName.equals(patientName)) {
                                 // Create AppointmentData object
-                                AppointmentData appointmentData = new AppointmentData(doctorName, clinicName, appointmentDate, appointmentTime, patientName);
+                                appointmentData = new AppointmentData(doctorName, clinicName, appointmentDate, appointmentTime, patientName);
 
                                 // Log appointment data
                                 Log.d("AppointmentData", "Appointment Data: " +
@@ -226,10 +233,12 @@ public class Signin_Patient extends AppCompatActivity {
                 } else {
                     Log.e("Airtable", "Error fetching appointments for patient: " + response.code());
                 }
+
+                // Inside onResponse method after retrieving patient data
+                inflateData(patientData);
             }
         });
     }
-
 
     // Method to inflate data to PatientData class
     private void inflateData(PatientData patientData) {
@@ -246,9 +255,12 @@ public class Signin_Patient extends AppCompatActivity {
         Intent intent = new Intent(Signin_Patient.this, Home_patient.class);
         // Pass patient data to the new activity
         intent.putExtra("patientData", patientData);
+        // Pass appointment data to the new activity if available
+        if (appointmentData != null) {
+            intent.putExtra("appointmentData", appointmentData);
+        }
         startActivity(intent);
         // Finish the current activity
         finish();
     }
-
 }

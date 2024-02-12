@@ -1,8 +1,9 @@
 package com.sp.healthease;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class PatientData implements Serializable{
+public class PatientData implements Parcelable {
     private String fullName; // New field for full name
     private String email;
     private String password;
@@ -77,5 +78,44 @@ public class PatientData implements Serializable{
 
     public void setMedicalHistory(String medical_history) {
         this.medical_history = medical_history;
+    }
+
+    // Parcelable implementation
+    protected PatientData(Parcel in) {
+        fullName = in.readString();
+        email = in.readString();
+        password = in.readString();
+        age = in.readString();
+        telegram = in.readString();
+        blood_group = in.readString();
+        medical_history = in.readString();
+    }
+
+    public static final Creator<PatientData> CREATOR = new Creator<PatientData>() {
+        @Override
+        public PatientData createFromParcel(Parcel in) {
+            return new PatientData(in);
+        }
+
+        @Override
+        public PatientData[] newArray(int size) {
+            return new PatientData[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(fullName);
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(age);
+        dest.writeString(telegram);
+        dest.writeString(blood_group);
+        dest.writeString(medical_history);
     }
 }

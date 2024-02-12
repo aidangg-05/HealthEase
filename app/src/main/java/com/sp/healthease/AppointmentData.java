@@ -1,8 +1,9 @@
 package com.sp.healthease;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class AppointmentData implements Serializable {
+public class AppointmentData implements Parcelable {
     private String doctorName;
     private String clinicName;
     private String appointmentDate;
@@ -57,5 +58,40 @@ public class AppointmentData implements Serializable {
 
     public void setPatientName(String patientName) {
         this.patientName = patientName;
+    }
+
+    // Parcelable implementation
+    protected AppointmentData(Parcel in) {
+        doctorName = in.readString();
+        clinicName = in.readString();
+        appointmentDate = in.readString();
+        appointmentTime = in.readString();
+        patientName = in.readString();
+    }
+
+    public static final Creator<AppointmentData> CREATOR = new Creator<AppointmentData>() {
+        @Override
+        public AppointmentData createFromParcel(Parcel in) {
+            return new AppointmentData(in);
+        }
+
+        @Override
+        public AppointmentData[] newArray(int size) {
+            return new AppointmentData[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(doctorName);
+        dest.writeString(clinicName);
+        dest.writeString(appointmentDate);
+        dest.writeString(appointmentTime);
+        dest.writeString(patientName);
     }
 }

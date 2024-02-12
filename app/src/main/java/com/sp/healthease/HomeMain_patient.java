@@ -39,13 +39,36 @@ public class HomeMain_patient extends Fragment {
         String userEmail = "";
         Bundle args = getArguments();
         if (args != null) {
-            userEmail = args.getString("userEmail");
+            PatientData patientData = args.getParcelable("patientData");
+            AppointmentData appointmentData = args.getParcelable("appointmentData");
+
+            // Check if patientData and appointmentData are not null
+            if (patientData != null && appointmentData != null) {
+                // Set the full name of the patient in the username_patient TextView
+                TextView usernameTextView = rootView.findViewById(R.id.username_patient);
+                usernameTextView.setText(patientData.getFullName());
+
+                // Set appointment data in the corresponding TextViews
+                TextView doctorNameTextView = rootView.findViewById(R.id.appoint_doctorName_preview);
+                doctorNameTextView.setText(appointmentData.getDoctorName());
+
+                TextView clinicNameTextView = rootView.findViewById(R.id.appoint_clinic_preview);
+                clinicNameTextView.setText(appointmentData.getClinicName());
+
+                TextView appointmentDateTextView = rootView.findViewById(R.id.appoint_date_preview);
+                appointmentDateTextView.setText(appointmentData.getAppointmentDate());
+
+                TextView appointmentTimeTextView = rootView.findViewById(R.id.appoint_time_preview);
+                appointmentTimeTextView.setText("Time:" + appointmentData.getAppointmentTime());
+            } else {
+                Log.e("HomeMain_patient", "PatientData or AppointmentData is null");
+            }
         } else {
-            Log.e("Home_patient", "Arguments are null");
+            Log.e("HomeMain_patient", "Arguments bundle is null");
         }
 
         // Log userEmail for debugging
-        Log.d("Home_patient", "User Email: " + userEmail);
+        Log.d("HomeMain_patient", "User Email: " + userEmail);
 
         // Set up click listeners for CardViews
         CardView appointmentCardView = rootView.findViewById(R.id.cardView_appointment);
@@ -67,6 +90,8 @@ public class HomeMain_patient extends Fragment {
 
         return rootView;
     }
+
+
 
     private void navigateToAppointment() {
         FragmentManager fragmentManager = getParentFragmentManager();
