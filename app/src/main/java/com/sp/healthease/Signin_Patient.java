@@ -60,7 +60,7 @@ public class Signin_Patient extends AppCompatActivity {
 
         // Construct the request body with user data
         RequestBody requestBody = new FormBody.Builder()
-                .add("filterByFormula", "AND({Email}='" + email + "', {Password}='" + password + "')")
+                .add("filterByFormula", "AND({Email}='" + email + "', {Password}='" + password + "', NOT({Email}='', {Password}=''))") // Filter by email and password, ensuring they are not empty
                 .build();
 
         // Make the GET request to Airtable
@@ -100,33 +100,46 @@ public class Signin_Patient extends AppCompatActivity {
                                 Toast.makeText(Signin_Patient.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                             });
                         } else {
-                            // Iterate over records and check email and password
+                            boolean found = false; // Flag to indicate if a matching email is found
+                            // Iterate over records and find matching email
                             for (int i = 0; i < records.length(); i++) {
                                 JSONObject record = records.getJSONObject(i);
                                 JSONObject fields = record.getJSONObject("fields");
 
-                                String recordEmail = fields.getString("Email");
-                                String recordPassword = fields.getString("Password");
+                                // Extract necessary fields
+                                String recordEmail = fields.optString("Email");
 
-                                if (email.equals(recordEmail) && password.equals(recordPassword)) {
-                                    // Authentication successful, navigate to the next activity
-                                    runOnUiThread(() -> {
-                                        // Inside onResponse, after successful authentication
-                                        String userEmail = email; // Replace with the actual email you used for authentication
-                                        Intent intent = new Intent(Signin_Patient.this, Home_patient.class);
-                                        intent.putExtra("userEmail", userEmail);
-                                        startActivity(intent);
-                                        finish(); // Finish the current activity
-                                        // Finish the current activity
-                                    });
-                                    return;
+                                // Check if the email matches the user-entered email
+                                if (email.equals(recordEmail)) {
+                                    String fullName = fields.optString("Full_Name");
+                                    String airtablePassword = fields.optString("Password");
+                                    String age = fields.optString("Age");
+                                    String telegram = fields.optString("Telegram");
+                                    String bloodGroup = fields.optString("Blood_Group");
+                                    String medicalHistory = fields.optString("Medical_History");
+
+                                    // Check if the password matches
+                                    if (password.equals(airtablePassword)) {
+                                        // Create PatientData object and populate it with retrieved data
+                                        PatientData patientData = new PatientData(fullName, email, airtablePassword, age, telegram, bloodGroup, medicalHistory);
+
+                                        // Inflate data to PatientData class
+                                        inflateData(patientData);
+
+                                        // Fetch appointments for the patient
+                                        fetchAppointmentsForPatient(fullName);
+
+                                        found = true; // Indicate that a matching email and password are found
+                                        break; // Exit the loop once the correct record is found
+                                    }
                                 }
                             }
-
-                            // No matching email and password found, show error toast
-                            runOnUiThread(() -> {
-                                Toast.makeText(Signin_Patient.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-                            });
+                            // If the loop finishes without finding a matching email or password
+                            if (!found) {
+                                runOnUiThread(() -> {
+                                    Toast.makeText(Signin_Patient.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                                });
+                            }
                         }
                     } catch (JSONException e) {
                         Log.e("Airtable", "Error parsing JSON response", e);
@@ -138,5 +151,104 @@ public class Signin_Patient extends AppCompatActivity {
         });
     }
 
+    private void fetchAppointmentsForPatient(String fullName) {
+        // Construct the Airtable API endpoint for Appointments table
+        String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
+        String baseId = "appDrji84bd55oOkv";
+        String tableName = "Appointments";
+        String endpoint = "https://api.airtable.com/v0/" + baseId + "/" + tableName;
+
+        // Construct the request body with filter condition
+        RequestBody requestBody = new FormBody.Builder()
+                .add("filterByFormula", "{Patients}='" + fullName + "'") // Filter by patient name
+                .build();
+
+        // Make the GET request to Airtable
+        Request request = new Request.Builder()
+                .url(endpoint)
+                .header("Authorization", "Bearer " + apiKey)
+                .get()
+                .build();
+
+        // Execute the request asynchronously
+        OkHttpClient client = new OkHttpClient();
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                // Handle failure
+                Log.e("Airtable", "Error fetching appointments for patient", e);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                // Handle success
+                if (response.isSuccessful()) {
+                    String responseBody = response.body().string();
+                    Log.d("Airtable", "Response body: " + responseBody);
+
+                    try {
+                        // Parse the JSON response
+                        JSONObject jsonResponse = new JSONObject(responseBody);
+
+                        // Check if the response contains any records
+                        JSONArray records = jsonResponse.getJSONArray("records");
+                        for (int i = 0; i < records.length(); i++) {
+                            JSONObject record = records.getJSONObject(i);
+                            JSONObject fields = record.getJSONObject("fields");
+
+                            // Extract necessary fields from Airtable
+                            String doctorName = fields.optString("Doctor");
+                            String clinicName = fields.optString("Clinic");
+                            String appointmentDate = fields.optString("Date");
+                            String appointmentTime = fields.optString("Time");
+                            String patientName = fields.optString("Patient");
+
+                            // Compare patientName with fullName
+                            if (fullName.equals(patientName)) {
+                                // Create AppointmentData object
+                                AppointmentData appointmentData = new AppointmentData(doctorName, clinicName, appointmentDate, appointmentTime, patientName);
+
+                                // Log appointment data
+                                Log.d("AppointmentData", "Appointment Data: " +
+                                        appointmentData.getDoctorName() + ", " +
+                                        appointmentData.getClinicName() + ", " +
+                                        appointmentData.getAppointmentDate() + ", " +
+                                        appointmentData.getAppointmentTime() + ", " +
+                                        appointmentData.getPatientName());
+
+                                // Perform any action with appointment data here, such as displaying it or storing it
+                            }
+                        }
+                    } catch (JSONException e) {
+                        Log.e("Airtable", "Error parsing JSON response", e);
+                    }
+
+                } else {
+                    Log.e("Airtable", "Error fetching appointments for patient: " + response.code());
+                }
+            }
+        });
+    }
+
+
+    // Method to inflate data to PatientData class
+    private void inflateData(PatientData patientData) {
+        // Log patient data
+        Log.d("PatientData", "Patient Data: " + patientData.getFullName() + ", " +
+                patientData.getEmail() + ", " +
+                patientData.getPassword() + ", " +
+                patientData.getAge() + ", " +
+                patientData.getTelegram() + ", " +
+                patientData.getBloodGroup() + ", " +
+                patientData.getMedicalHistory());
+
+        // Start new activity with inflated data
+        Intent intent = new Intent(Signin_Patient.this, Home_patient.class);
+        // Pass patient data to the new activity
+        intent.putExtra("patientData", patientData);
+        startActivity(intent);
+        // Finish the current activity
+        finish();
+    }
 
 }
