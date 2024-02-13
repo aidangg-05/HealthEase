@@ -46,6 +46,8 @@ public class Patients_BookAppointment extends Fragment {
         doctorDropdown = view.findViewById(R.id.dropdowndocselection);
         doctors = new ArrayList<>();
 
+
+
         // Get marker title from arguments bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
