@@ -42,6 +42,7 @@ public class Patients_BookAppointment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patients__book_appointment, container, false);
+
         clinicNameTextView = view.findViewById(R.id.clinicName);
         doctorDropdown = view.findViewById(R.id.dropdowndocselection);
         doctors = new ArrayList<>();

@@ -44,7 +44,10 @@ public class Home_patient extends AppCompatActivity {
         bundle.putParcelable("appointmentData", appointmentData);
 
         HomeMain_patient homeMainPatientFragment = new HomeMain_patient();
+        MapsFragment mapsFragment = new MapsFragment();
+        mapsFragment.setArguments(bundle);
         homeMainPatientFragment.setArguments(bundle);
+
 
         // Replace the fragment
         replaceFragment(homeMainPatientFragment);
@@ -55,7 +58,8 @@ public class Home_patient extends AppCompatActivity {
             if (itemId == R.id.menu_home_patient) {
                 replaceFragment(homeMainPatientFragment);
             } else if (itemId == R.id.menu_book_patient) {
-                replaceFragment(new MapsFragment());
+                mapsFragment.setArguments(bundle); // Pass the bundle to MapsFragment
+                replaceFragment(mapsFragment); // Replace the current fragment with mapsFragment;
             } else if (itemId == R.id.menu_doc_patient) {
                 replaceFragment(new Patients_DoctorContact());
             } else if (itemId == R.id.menu_profile_patient) {

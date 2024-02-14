@@ -8,9 +8,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+
 import com.google.android.material.button.MaterialButton;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -31,6 +34,19 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maps, container, false);
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            PatientData patientData = bundle.getParcelable("patientData");
+            AppointmentData appointmentData = bundle.getParcelable("appointmentData");
+
+            // Check if patientData and appointmentData are not null
+            if (patientData != null && appointmentData != null) {
+            } else {
+                Log.e("MapsFrag", "PatientData or AppointmentData is null");
+            }
+        } else {
+            Log.e("MapFrag", "Arguments bundle is null");
+        }
         return view;
     }
 
