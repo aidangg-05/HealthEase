@@ -7,21 +7,21 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.google.android.material.button.MaterialButton;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -42,12 +42,20 @@ public class Patients_BookAppointment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_patients__book_appointment, container, false);
-
+        MaterialButton submitButton = view.findViewById(R.id.booking_submitbtn);
         clinicNameTextView = view.findViewById(R.id.clinicName);
         doctorDropdown = view.findViewById(R.id.dropdowndocselection);
         doctors = new ArrayList<>();
 
-
+        submitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.patient_framelayout, new HomeMain_patient());
+                fragmentTransaction.commit();
+            }
+        });
 
         // Get marker title from arguments bundle
         Bundle bundle = getArguments();

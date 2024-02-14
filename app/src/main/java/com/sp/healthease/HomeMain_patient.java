@@ -24,6 +24,12 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 
 public class HomeMain_patient extends Fragment {
+    private String fullName;
+    private String doctorName;
+    private String clinicName;
+    private String appointmentDate;
+    private String appointmentTime;
+
 
     public HomeMain_patient() {
         // Required empty public constructor
@@ -91,7 +97,29 @@ public class HomeMain_patient extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        // Save the data to the bundle
+        outState.putString("fullName", fullName);
+        outState.putString("doctorName", doctorName);
+        outState.putString("clinicName", clinicName);
+        outState.putString("appointmentDate", appointmentDate);
+        outState.putString("appointmentTime", appointmentTime);
+    }
 
+    @Override
+    public void onViewStateRestored(Bundle savedInstanceState) {
+        super.onViewStateRestored(savedInstanceState);
+        // Restore the data from the bundle
+        if (savedInstanceState != null) {
+            fullName = savedInstanceState.getString("fullName");
+            doctorName = savedInstanceState.getString("doctorName");
+            clinicName = savedInstanceState.getString("clinicName");
+            appointmentDate = savedInstanceState.getString("appointmentDate");
+            appointmentTime = savedInstanceState.getString("appointmentTime");
+        }
+    }
 
     private void navigateToAppointment() {
         FragmentManager fragmentManager = getParentFragmentManager();

@@ -26,11 +26,8 @@ public class HomeMainDoctor extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home_main_doctor, container, false);
         telegramBtn = view.findViewById(R.id.telegramCardView);
-
-        // Set click listener for the Telegram button
         telegramBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -38,6 +35,7 @@ public class HomeMainDoctor extends Fragment {
             }
         });
         return view;
+
     }
     // Method to open Telegram app
     private void openTelegram() {
