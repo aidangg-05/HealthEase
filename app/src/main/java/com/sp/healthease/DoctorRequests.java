@@ -240,41 +240,7 @@ public class DoctorRequests extends Fragment {
         }
     }
 
-    // Method to add a record to Airtable
-    private void addRecordToAirtable(String doctorName, String patientName, String time, String clinicName, String date) {
-        String apiKey = "YOUR_API_KEY";
-        String baseId = "YOUR_BASE_ID";
-        String tableName = "Appointment";
-        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableName;
-
-        OkHttpClient client = new OkHttpClient();
-
-        // Create JSON body for the new record
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        String jsonBody = "{\"fields\": {\"Doctor\": \"" + doctorName + "\", \"Patient\": \"" + patientName + "\", \"Time\": \"" + time + "\", \"Clinic\": \"" + clinicName + "\", \"Date\": \"" + date + "\"}}";
-        RequestBody requestBody = RequestBody.create(jsonBody, JSON);
-
-        Request request = new Request.Builder()
-                .url(url)
-                .post(requestBody)
-                .addHeader("Authorization", "Bearer " + apiKey)
-                .addHeader("Content-Type", "application/json")
-                .build();
-
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                // Record successfully added
-            } else {
-                // Handle unsuccessful addition
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle exception
-        }
-    }
-
-    private void addRecordToAirtableAndDeleteFromRequests(String doctorName, String patientName, String time, String clinicName, String date, String recordId) {
+    private void addRecordToAirtable(String doctorName, String patientName, String time, String clinicName, String date, String recordId) {
         String apiKey = "YOUR_API_KEY";
         String baseId = "YOUR_BASE_ID";
         String requestsTableName = "Requests";
