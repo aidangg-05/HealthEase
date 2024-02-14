@@ -11,32 +11,56 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.util.Log;
 
 
 public class HomeMainDoctor extends Fragment {
     CardView telegramBtn;
-    public HomeMainDoctor() {
-    }
+    private DoctorData doctorData;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public HomeMainDoctor() {
+        // Required empty public constructor
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_home_main_doctor, container, false);
-        telegramBtn = view.findViewById(R.id.telegramCardView);
-        telegramBtn.setOnClickListener(new View.OnClickListener() {
+        // Inflate the layout for this fragment
+        View rootView = inflater.inflate(R.layout.fragment_home_main_doctor, container, false);
+
+        // Retrieve doctorData from arguments
+        Bundle args = getArguments();
+        if (args != null) {
+            doctorData = args.getParcelable("doctorData");
+
+            // Check if doctorData is not null
+            if (doctorData != null) {
+                // Example usage: Set the full name of the doctor in a TextView
+                TextView doctorNameTextView = rootView.findViewById(R.id.username_doctor);
+                doctorNameTextView.setText(doctorData.getFullName());
+
+                // You can similarly use other fields of doctorData to populate UI elements
+            } else {
+                Log.e("HomeMainDoctor", "DoctorData is null");
+            }
+        } else {
+            Log.e("HomeMainDoctor", "Arguments bundle is null");
+        }
+
+        // Set up click listener for CardView
+        CardView telegramCardView = rootView.findViewById(R.id.telegramCardView);
+        telegramCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openTelegram();
             }
         });
-        return view;
 
+        return rootView;
     }
+
+
     // Method to open Telegram app
     private void openTelegram() {
         // Check if Telegram is installed on the device
@@ -60,5 +84,4 @@ public class HomeMainDoctor extends Fragment {
         // Check if there's any app that can handle the Intent
         return intent.resolveActivity(pm) != null;
     }
-
 }
