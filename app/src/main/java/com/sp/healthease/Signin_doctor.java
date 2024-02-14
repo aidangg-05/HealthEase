@@ -58,16 +58,17 @@ public class Signin_doctor extends AppCompatActivity {
         String tableName = "Doctor Registration";
         String endpoint = "https://api.airtable.com/v0/" + baseId + "/" + tableName;
 
-        // Construct the request body with user data
+        // Construct the request body with filter formula for email
+        String filterFormula = "{Email}='" + email + "'";
         RequestBody requestBody = new FormBody.Builder()
-                .add("filterByFormula", "AND({Email}='" + email + "')") // Filter by email
+                .add("filterByFormula", filterFormula)
                 .build();
 
         // Make the GET request to Airtable
         Request request = new Request.Builder()
-                .url(endpoint)
+                .url(endpoint + "?filterByFormula=" + filterFormula)
                 .header("Authorization", "Bearer " + apiKey)
-                .get()
+                .get() // Change POST to GET
                 .build();
 
         // Execute the request asynchronously
@@ -98,39 +99,35 @@ public class Signin_doctor extends AppCompatActivity {
                                 Toast.makeText(Signin_doctor.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                             });
                         } else {
-                            // Iterate over the records
-                            for (int i = 0; i < records.length(); i++) {
-                                JSONObject record = records.getJSONObject(i);
-                                JSONObject fields = record.getJSONObject("fields");
+                            // Get the first record (assuming unique email)
+                            JSONObject record = records.getJSONObject(0);
+                            JSONObject fields = record.getJSONObject("fields");
 
-                                // Extract password from the record
-                                String recordPassword = fields.optString("Password");
+                            // Extract password from the record
+                            String recordPassword = fields.optString("Password");
 
-                                // Check if the entered password matches the password from the record
-                                if (password.equals(recordPassword)) {
-                                    // Passwords match, proceed with authentication
-                                    String fullName = fields.optString("Full_Name");
-                                    String field = fields.optString("Field");
-                                    String clinic = fields.optString("Clinic");
-                                    String telegram = fields.optString("Telegram");
+                            // Check if the entered password matches the password from the record
+                            if (password.equals(recordPassword)) {
+                                // Passwords match, proceed with authentication
+                                String fullName = fields.optString("Full_Name");
+                                String field = fields.optString("Field");
+                                String clinic = fields.optString("Clinic");
+                                String telegram = fields.optString("Telegram");
 
-                                    // Create DoctorData object
-                                    DoctorData doctorData = new DoctorData(email, password, field, clinic, fullName, telegram);
+                                // Create DoctorData object
+                                DoctorData doctorData = new DoctorData(email, password, field, clinic, fullName, telegram);
 
-                                    // Inflate data
-                                    inflateData(doctorData);
+                                // Inflate data
+                                inflateData(doctorData);
 
-                                    // Finish the current activity
-                                    finish();
-
-                                    // Exit the loop as authentication is successful
-                                    return;
-                                }
+                                // Finish the current activity
+                                finish();
+                            } else {
+                                // Incorrect password
+                                runOnUiThread(() -> {
+                                    Toast.makeText(Signin_doctor.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
+                                });
                             }
-                            // If no matching password is found
-                            runOnUiThread(() -> {
-                                Toast.makeText(Signin_doctor.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
-                            });
                         }
                     } catch (JSONException e) {
                         Log.e("Airtable", "Error parsing JSON response", e);
@@ -141,6 +138,7 @@ public class Signin_doctor extends AppCompatActivity {
             }
         });
     }
+
 
 
 
