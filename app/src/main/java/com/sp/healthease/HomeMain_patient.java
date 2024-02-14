@@ -56,13 +56,13 @@ public class HomeMain_patient extends Fragment {
 
                 // Set appointment data in the corresponding TextViews
                 TextView doctorNameTextView = rootView.findViewById(R.id.appoint_doctorName_preview);
-                doctorNameTextView.setText(appointmentData.getDoctorName());
+                doctorNameTextView.setText("Doctor: " + appointmentData.getDoctorName());
 
                 TextView clinicNameTextView = rootView.findViewById(R.id.appoint_clinic_preview);
-                clinicNameTextView.setText(appointmentData.getClinicName());
+                clinicNameTextView.setText("Clinic: " + appointmentData.getClinicName());
 
                 TextView appointmentDateTextView = rootView.findViewById(R.id.appoint_date_preview);
-                appointmentDateTextView.setText(appointmentData.getAppointmentDate());
+                appointmentDateTextView.setText("Date: "+ appointmentData.getAppointmentDate());
 
                 TextView appointmentTimeTextView = rootView.findViewById(R.id.appoint_time_preview);
                 appointmentTimeTextView.setText("Time:" + appointmentData.getAppointmentTime());

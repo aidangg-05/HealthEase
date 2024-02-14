@@ -46,72 +46,25 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <com.google.android.material.card.MaterialCardView
-                        android:id="@+id/requestsCard"
-                        android:layout_width="350dp"
-                        android:layout_height="164dp"
-                        android:layout_marginTop="104dp"
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/requests"
+                        android:layout_width="328dp"
+                        android:layout_height="537dp"
                         android:elevation="30dp"
-                        app:cardBackgroundColor="#FFDD77"
+                        app:cardBackgroundColor="#FFFFFF"
                         app:cardCornerRadius="8dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.512"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent">
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.703">
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/requestsRecycle"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <TextView
-                                android:id="@+id/requestsPatientName"
-                                android:layout_width="256dp"
-                                android:layout_height="36dp"
-                                android:layout_marginTop="16dp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/requestsTime"
-                                android:layout_width="253dp"
-                                android:layout_height="39dp"
-                                android:layout_marginTop="60dp"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.505"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/requestsAcceptbtn"
-                                android:layout_width="158dp"
-                                android:layout_height="43dp"
-                                android:layout_marginTop="108dp"
-                                android:backgroundTint="#FFFFFF"
-                                android:elevation="15dp"
-                                android:text="ACCEPT"
-                                android:textColor="@color/black"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.036"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/requestsrejectbtn"
-                                android:layout_width="158dp"
-                                android:layout_height="43dp"
-                                android:layout_marginTop="108dp"
-                                android:backgroundTint="#FFFFFF"
-                                android:elevation="15dp"
-                                android:text="REJECT"
-                                android:textColor="@color/black"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintHorizontal_bias="0.968"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                            android:layout_height="match_parent" />
+                    </androidx.cardview.widget.CardView>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

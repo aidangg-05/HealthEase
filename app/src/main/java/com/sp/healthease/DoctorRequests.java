@@ -2,51 +2,48 @@ package com.sp.healthease;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
-
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
-
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.Response;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
 
 public class DoctorRequests extends Fragment {
     private List<Appointment> appointments;
-    Context context;
-    Inflater layoutInflater;
-    Activity view;
+    private RecyclerView list;
+    private AppointmentAdapter adapter;
+
     public DoctorRequests() {
         // Required empty public constructor
     }
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            try {
-                appointments = fetchDataFromAirtable();
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-        } catch (IOException e) {
+            new FetchAppointmentsTask().execute();
+        } catch (Exception e) {
             e.printStackTrace();
+            appointments = new ArrayList<>();
         }
     }
 
@@ -55,33 +52,51 @@ public class DoctorRequests extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_doctor_requests, container, false);
-
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
+        list = view.findViewById(R.id.requestsRecycle);
+        list.setHasFixedSize(true);
+        list.setLayoutManager(layoutManager);
+        list.setItemAnimator(new DefaultItemAnimator());
+        list.setAdapter(adapter);
         return view;
     }
+
     public class Appointment {
         private String doctorName;
         private String patientName;
         private String time;
         private String clinicName;
+        private String Date;
 
         void setDoctorName(String doctorName) {
             this.doctorName = doctorName;
         }
+
         void setPatientName(String patientName){
             this.patientName = patientName;
         }
+
         void setTime(String time){
             this.time = time;
         }
+
         void setClinicName(String clinicName){
             this.clinicName = clinicName;
+        }
+        void setDate(String reqDate){
+            this.Date = reqDate;
         }
 
         String getPatientName() {
             return patientName;
         }
+
         String getTime(){
             return time;
+        }
+
+        String getDate(){
+            return Date;
         }
     }
 
@@ -96,7 +111,7 @@ public class DoctorRequests extends Fragment {
         OkHttpClient client = new OkHttpClient();
 
         Request request = new Request.Builder()
-                .url(url + baseId + "/" + tableName)
+                .url(url)
                 .header("Authorization", "Bearer " + apiKey)
                 .build();
 
@@ -112,6 +127,7 @@ public class DoctorRequests extends Fragment {
 
             // Extract data from Airtable fields
             String doctorName = fields.getString("Doctor");
+            String reqDate = fields.getString("Date");
             String patientName = fields.getString("Patient");
             String time = fields.getString("Time");
             String clinicName = fields.getString("Clinic");
@@ -122,6 +138,7 @@ public class DoctorRequests extends Fragment {
             appointment.setPatientName(patientName);
             appointment.setTime(time);
             appointment.setClinicName(clinicName);
+            appointment.setDate(reqDate);
 
             appointments.add(appointment);
         }
@@ -129,4 +146,64 @@ public class DoctorRequests extends Fragment {
         return appointments;
     }
 
+    private class FetchAppointmentsTask extends AsyncTask<Void, Void, List<Appointment>> {
+        @Override
+        protected List<Appointment> doInBackground(Void... voids) {
+            try {
+                return fetchDataFromAirtable();
+            } catch (IOException | JSONException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Appointment> result) {
+            super.onPostExecute(result);
+            if (result != null) {
+                appointments = result;
+                if (adapter == null) {
+                    adapter = new AppointmentAdapter();
+                    list.setAdapter(adapter); // Set adapter for the RecyclerView
+                }
+                adapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    public class AppointmentAdapter extends RecyclerView.Adapter<AppointmentAdapter.AppointmentViewHolder> {
+        @NonNull
+        @Override
+        public AppointmentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.requestsrow, parent, false);
+            return new AppointmentViewHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(@NonNull AppointmentViewHolder holder, int position) {
+            Appointment appointment = appointments.get(position);
+            holder.patientNameTextView.setText("Name: " + appointment.getPatientName());
+            holder.timeTextView.setText("Time: " + appointment.getTime());
+            holder.dateTextView.setText("Date: " + appointment.getDate());
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return appointments.size();
+        }
+
+        public class AppointmentViewHolder extends RecyclerView.ViewHolder {
+            TextView patientNameTextView;
+            TextView timeTextView;
+            TextView dateTextView;
+
+            public AppointmentViewHolder(@NonNull View itemView) {
+                super(itemView);
+                patientNameTextView = itemView.findViewById(R.id.requestsPatientName);
+                timeTextView = itemView.findViewById(R.id.requestsTime);
+                dateTextView = itemView.findViewById(R.id.requestsdate);
+            }
+        }
+    }
 }
