@@ -97,6 +97,7 @@ public class Patients_BookAppointment extends Fragment {
         });
 
 
+
         // Get marker title from arguments bundle
         Bundle bundle = getArguments();
         if (bundle != null) {
@@ -125,7 +126,7 @@ public class Patients_BookAppointment extends Fragment {
     private void fetchDataFromAirtable(String clinicName) {
         String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
         String baseId = "appDrji84bd55oOkv";
-        String tableName = "Requests";
+        String tableName = "Doctor Registration";
         String url = "https://api.airtable.com/v0/" + baseId + "/" + tableName;
 
         OkHttpClient client = new OkHttpClient();
@@ -139,7 +140,6 @@ public class Patients_BookAppointment extends Fragment {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
-                // Handle failure, for example, show an error message
             }
 
             @Override
@@ -147,14 +147,11 @@ public class Patients_BookAppointment extends Fragment {
                 if (response.isSuccessful()) {
                     String jsonData = response.body().string();
                     try {
-                        doctors = parseDoctors(jsonData);
+                        doctors = parseDoctors(jsonData, clinicName);
                         getActivity().runOnUiThread(() -> populateDropdown());
                     } catch (JSONException e) {
                         e.printStackTrace();
-                        // Handle JSON parsing error
                     }
-                } else {
-                    // Handle unsuccessful response
                 }
             }
         });
@@ -254,13 +251,6 @@ public class Patients_BookAppointment extends Fragment {
                 }
             }
         });
-    }
-
-    private void replaceFragment(Fragment fragment) {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.patient_framelayout, fragment);
-        fragmentTransaction.commit();
     }
 
 }
