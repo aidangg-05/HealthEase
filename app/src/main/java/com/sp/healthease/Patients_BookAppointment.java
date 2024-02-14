@@ -14,6 +14,10 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import android.util.Log;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import okhttp3.MediaType;
+
 import com.google.android.material.button.MaterialButton;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,6 +34,8 @@ import okhttp3.Request;
 import okhttp3.Response;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import okhttp3.RequestBody;
+
 import android.util.Log;
 
 public class Patients_BookAppointment extends Fragment {
@@ -60,6 +66,8 @@ public class Patients_BookAppointment extends Fragment {
                 String selectedDoctor = doctorDropdown.getSelectedItem().toString();
                 //string for time selected
                 String selectedTime = appointmentTime.getSelectedItem().toString();
+                //string for clinic name
+                String clinicName = clinicNameTextView.getText().toString();
 
                 // Get selected date from calendar
                 CalendarView calendarView = view.findViewById(R.id.dateOfappoint);
@@ -69,6 +77,17 @@ public class Patients_BookAppointment extends Fragment {
                 //string for date
                 String selectedDateString = dateFormat.format(selectedDate);
 
+                // Get the patientData from bundle arguments
+                PatientData patientData = getArguments().getParcelable("patientData");
+                if (patientData != null) {
+                    // Get the patient's full name
+                    String patientFullName = patientData.getFullName();
+                    // Push data to Airtable including patient's full name
+                    pushDataToAirtable(selectedDoctor, selectedDateString, selectedTime, patientFullName, clinicName);
+                } else {
+                    Log.d("Patients_BookAppt", "Patient Data is null");
+                }
+
                 // Concatenate doctor and date into a single string
                 String userInput = "Selected Doctor: " + selectedDoctor + "\nSelected Date: " + selectedDateString + "\nSelected Time:" + selectedTime;
 
@@ -76,6 +95,8 @@ public class Patients_BookAppointment extends Fragment {
                 Log.d("UserInput", userInput);
             }
         });
+
+
 
         // Get marker title from arguments bundle
         Bundle bundle = getArguments();
@@ -126,7 +147,7 @@ public class Patients_BookAppointment extends Fragment {
                 if (response.isSuccessful()) {
                     String jsonData = response.body().string();
                     try {
-                        doctors = parseDoctors(jsonData);
+                        doctors = parseDoctors(jsonData, clinicName);
                         getActivity().runOnUiThread(() -> populateDropdown());
                     } catch (JSONException e) {
                         e.printStackTrace();
@@ -135,6 +156,27 @@ public class Patients_BookAppointment extends Fragment {
             }
         });
     }
+
+    private List<Map<String, String>> parseDoctors(String jsonData, String clinicName) throws JSONException {
+        List<Map<String, String>> filteredDoctors = new ArrayList<>();
+        JSONObject jsonObject = new JSONObject(jsonData);
+        JSONArray records = jsonObject.getJSONArray("records");
+        for (int i = 0; i < records.length(); i++) {
+            JSONObject record = records.getJSONObject(i);
+            JSONObject fields = record.getJSONObject("fields");
+            String fullName = fields.getString("Full_Name");
+            String doctorClinicName = fields.getString("Clinic");
+            if (clinicName.equals(doctorClinicName)) {
+                Map<String, String> doctor = new HashMap<>();
+                doctor.put("fullName", fullName);
+                filteredDoctors.add(doctor);
+            }
+        }
+        return filteredDoctors;
+    }
+
+
+
 
     private List<Map<String, String>> parseDoctors(String jsonData) throws JSONException {
         List<Map<String, String>> doctors = new ArrayList<>();
@@ -160,6 +202,55 @@ public class Patients_BookAppointment extends Fragment {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_spinner_item, doctorNames);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         doctorDropdown.setAdapter(adapter);
+    }
+
+    private void pushDataToAirtable(String selectedDoctor, String selectedDate, String selectedTime, String patientFullName, String clinicName) {
+        String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
+        String baseId = "appDrji84bd55oOkv";
+        String tableName = "Requests";
+        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableName;
+
+        OkHttpClient client = new OkHttpClient();
+
+        // Prepare the JSON request body
+        JSONObject requestBody = new JSONObject();
+        try {
+            requestBody.put("fields", new JSONObject()
+                    .put("Doctor", selectedDoctor)
+                    .put("Date", selectedDate)
+                    .put("Time", selectedTime)
+                    .put("Patient", patientFullName)
+                    .put("Clinic", clinicName));
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        RequestBody body = RequestBody.create(requestBody.toString(), MediaType.parse("application/json"));
+
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Authorization", "Bearer " + apiKey)
+                .post(body)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.isSuccessful()) {
+                    // Data successfully pushed to Airtable
+                    Log.d("AirtablePush", "Data pushed successfully!");
+                } else {
+                    // Error occurred while pushing data
+                    Log.e("AirtablePush", "Failed to push data to Airtable: " + response.code() + " " + response.message());
+                }
+            }
+        });
     }
 
 }
