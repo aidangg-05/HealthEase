@@ -6,6 +6,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Spinner;
+
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import okhttp3.Call;
@@ -15,13 +18,19 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import android.widget.ImageView;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 public class Signup_doctor3 extends AppCompatActivity {
 
+    private static final int SELECT_IMAGE = 100;
+    ImageView selectIDbtn;
     TextInputEditText bloodgroupp;
     TextInputEditText medicalhistoryp;
 
@@ -39,9 +48,18 @@ public class Signup_doctor3 extends AppCompatActivity {
         // Retrieve the PatientData object from the intent
         doctorData = getIntent().getParcelableExtra("doctorData");
 
-
+        selectIDbtn = findViewById(R.id.doc_id_img);
         bloodgroupp = findViewById(R.id.fullname_signup_doc);
         medicalhistoryp = findViewById(R.id.telegramid_signup_doc);
+
+        selectIDbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(Intent.createChooser(intent,"Select Image"),SELECT_IMAGE);
+            }
+        });
 
         Button nextButton = findViewById(R.id.submit_button_doc);
         nextButton.setOnClickListener(new View.OnClickListener() {
