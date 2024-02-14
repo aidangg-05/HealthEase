@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import android.util.Log;
+
 
 import com.google.android.material.button.MaterialButton;
 import org.json.JSONArray;
@@ -50,6 +52,7 @@ public class Patients_BookAppointment extends Fragment {
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 FragmentManager fragmentManager = getParentFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 fragmentTransaction.replace(R.id.patient_framelayout, new HomeMain_patient());
@@ -67,8 +70,20 @@ public class Patients_BookAppointment extends Fragment {
                 fetchDataFromAirtable(markerTitle);
             }
         }
+
+        // You can also retrieve patientData if it was passed
+        PatientData patientData = bundle.getParcelable("patientData");
+        if (patientData != null) {
+            // Log the contents of patientData
+            Log.d("Patients_BookAppt", "Patient Data: " + patientData.getFullName() + ", " + patientData.getEmail() + ", " + patientData.getAge());
+        } else {
+            Log.d("Patients_BookAppt", "Patient Data is null");
+        }
+
         return view;
     }
+
+
 
     private void fetchDataFromAirtable(String clinicName) {
         String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
@@ -129,4 +144,5 @@ public class Patients_BookAppointment extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         doctorDropdown.setAdapter(adapter);
     }
+
 }

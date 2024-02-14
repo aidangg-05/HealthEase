@@ -65,16 +65,30 @@ public class MapsFragment extends Fragment implements OnMapReadyCallback, Google
     @Override
     public boolean onMarkerClick(@NonNull Marker marker) {
         String markerTitle = marker.getTitle();
-        Bundle bundle = new Bundle();
-        bundle.putString("markerTitle", markerTitle);
-        Patients_BookAppointment appointmentFragment = new Patients_BookAppointment();
-        appointmentFragment.setArguments(bundle); // Attach the bundle to the fragment
-        FragmentManager fragmentManager = getParentFragmentManager(); // Use getParentFragmentManager() for fragments
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.patient_framelayout, appointmentFragment);
-        fragmentTransaction.commit();
+        Bundle bundle = getArguments();
+        if (bundle != null) {
+            PatientData patientData = bundle.getParcelable("patientData");
+            AppointmentData appointmentData = bundle.getParcelable("appointmentData");
+
+            // Pass the patientData to the Patients_BookAppointment fragment
+            Bundle appointmentBundle = new Bundle();
+            appointmentBundle.putParcelable("patientData", patientData);
+            appointmentBundle.putString("markerTitle", markerTitle); // Pass the marker title as well
+
+            Patients_BookAppointment appointmentFragment = new Patients_BookAppointment();
+            appointmentFragment.setArguments(appointmentBundle); // Attach the bundle to the fragment
+
+            FragmentManager fragmentManager = getParentFragmentManager(); // Use getParentFragmentManager() for fragments
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.patient_framelayout, appointmentFragment);
+            fragmentTransaction.commit();
+        } else {
+            Log.e("MapFrag", "Arguments bundle is null");
+        }
         return true;
     }
+
+
 
     @Override
     public void onMapReady(@NonNull GoogleMap googleMap) {
