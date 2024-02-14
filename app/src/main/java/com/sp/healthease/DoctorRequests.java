@@ -218,6 +218,7 @@ public class DoctorRequests extends Fragment {
                 acceptbtn.setOnClickListener(Accept);
                 rejectbtn.setOnClickListener(Reject);
             }
+
             private View.OnClickListener Accept = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -230,6 +231,7 @@ public class DoctorRequests extends Fragment {
 
                 }
             };
+
         }
     }
 
