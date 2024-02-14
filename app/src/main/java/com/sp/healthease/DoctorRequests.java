@@ -105,6 +105,8 @@ public class DoctorRequests extends Fragment {
         String getDate(){
             return Date;
         }
+        String getDoctorName() {return doctorName;}
+        String getClinicName() {return clinicName;}
     }
 
     private List<Appointment> fetchDataFromAirtable() throws IOException, JSONException {
@@ -222,82 +224,102 @@ public class DoctorRequests extends Fragment {
             private View.OnClickListener Accept = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Appointment appointment = appointments.get(position);
+                        addRecordToAirtable(appointment.getDoctorName(), appointment.getPatientName(), appointment.getTime(), appointment.getClinicName(), appointment.getDate());
+                    }
                 }
             };
             private View.OnClickListener Reject = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    int position = getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Appointment appointment = appointments.get(position);
+                        deleteRecordFromAirtable(appointment.getPatientName());
+                    }
                 }
             };
 
         }
     }
 
-    private void deleteRecordFromAirtable(String recordId) {
-        String apiKey = "YOUR_API_KEY";
-        String baseId = "YOUR_BASE_ID";
-        String tableName = "Requests";
-        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableName + "/" + recordId;
+    private void deleteRecordFromAirtable(String patientName) {
+        new AsyncTask<String, Void, Void>() {
+            @Override
+            protected Void doInBackground(String... strings) {
+                String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
+                String baseId = "appDrji84bd55oOkv";
+                String tableName = "Requests";
+                String url = "https://api.airtable.com/v0/" + baseId + "/" + tableName + "/" + strings[0];
 
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(url)
-                .delete()
-                .addHeader("Authorization", "Bearer " + apiKey)
-                .build();
+                OkHttpClient client = new OkHttpClient();
+                Request request = new Request.Builder()
+                        .url(url)
+                        .delete()
+                        .addHeader("Authorization", "Bearer " + apiKey)
+                        .build();
 
-        try {
-            Response response = client.newCall(request).execute();
-            if (response.isSuccessful()) {
-                // Record successfully deleted
-            } else {
-                // Handle unsuccessful deletion
+                try {
+                    Response response = client.newCall(request).execute();
+                    if (response.isSuccessful()) {
+                        // Record successfully deleted
+                    } else {
+                        // Handle unsuccessful deletion
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Handle exception
+                }
+                return null;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle exception
-        }
+        }.execute(patientName);
     }
 
-    private void addRecordToAirtable(String doctorName, String patientName, String time, String clinicName, String date, String recordId) {
-        String apiKey = "YOUR_API_KEY";
-        String baseId = "YOUR_BASE_ID";
-        String requestsTableName = "Requests";
-        String appointmentsTableName = "Appointment";
-        String requestsUrl = "https://api.airtable.com/v0/" + baseId + "/" + requestsTableName;
-        String appointmentsUrl = "https://api.airtable.com/v0/" + baseId + "/" + appointmentsTableName;
+    private void addRecordToAirtable(String doctorName, String patientName, String time, String clinicName, String date) {
+        new AsyncTask<Void, Void, Void>() {
+            @Override
+            protected Void doInBackground(Void... voids) {
+                String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
+                String baseId = "appDrji84bd55oOkv";
+                String requestsTableName = "Requests";
+                String appointmentsTableName = "Appointment";
+                String requestsUrl = "https://api.airtable.com/v0/" + baseId + "/" + requestsTableName;
+                String appointmentsUrl = "https://api.airtable.com/v0/" + baseId + "/" + appointmentsTableName;
 
-        OkHttpClient client = new OkHttpClient();
+                OkHttpClient client = new OkHttpClient();
 
-        // Create JSON body for the new record in the Appointment table
-        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
-        String jsonBody = "{\"fields\": {\"Doctor\": \"" + doctorName + "\", \"Patient\": \"" + patientName + "\", \"Time\": \"" + time + "\", \"Clinic\": \"" + clinicName + "\", \"Date\": \"" + date + "\"}}";
-        RequestBody requestBody = RequestBody.create(jsonBody, JSON);
+                // Create JSON body for the new record in the Appointment table
+                MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+                String jsonBody = "{\"fields\": {\"Doctor\": \"" + doctorName + "\", \"Patient\": \"" + patientName + "\", \"Time\": \"" + time + "\", \"Clinic\": \"" + clinicName + "\", \"Date\": \"" + date + "\"}}";
+                RequestBody requestBody = RequestBody.create(jsonBody, JSON);
 
-        // Create request to add record to Appointment table
-        Request addRequest = new Request.Builder()
-                .url(appointmentsUrl)
-                .post(requestBody)
-                .addHeader("Authorization", "Bearer " + apiKey)
-                .addHeader("Content-Type", "application/json")
-                .build();
+                // Create request to add record to Appointment table
+                Request addRequest = new Request.Builder()
+                        .url(appointmentsUrl)
+                        .post(requestBody)
+                        .addHeader("Authorization", "Bearer " + apiKey)
+                        .addHeader("Content-Type", "application/json")
+                        .build();
 
-        try {
-            // Execute request to add record to Appointment table
-            Response addResponse = client.newCall(addRequest).execute();
-            if (addResponse.isSuccessful()) {
-                // Record successfully added to Appointment table
-                // Now delete the record from the Requests table
-                deleteRecordFromAirtable(recordId);
-            } else {
-                // Handle unsuccessful addition to Appointment table
+                try {
+                    // Execute request to add record to Appointment table
+                    Response addResponse = client.newCall(addRequest).execute();
+                    if (addResponse.isSuccessful()) {
+                        // Record successfully added to Appointment table
+                        // Now delete the record from the Requests table
+                        deleteRecordFromAirtable(patientName);
+                    } else {
+                        // Handle unsuccessful addition to Appointment table
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    // Handle exception
+                }
+                return null;
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-            // Handle exception
-        }
+        }.execute();
     }
 
 }
