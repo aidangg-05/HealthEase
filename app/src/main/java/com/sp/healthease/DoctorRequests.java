@@ -27,6 +27,12 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 
+import okhttp3.MediaType;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
 public class DoctorRequests extends Fragment {
     private List<Appointment> appointments;
     private RecyclerView list;
@@ -207,4 +213,104 @@ public class DoctorRequests extends Fragment {
             }
         }
     }
+
+    private void deleteRecordFromAirtable(String recordId) {
+        String apiKey = "YOUR_API_KEY";
+        String baseId = "YOUR_BASE_ID";
+        String tableName = "Requests";
+        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableName + "/" + recordId;
+
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .delete()
+                .addHeader("Authorization", "Bearer " + apiKey)
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                // Record successfully deleted
+            } else {
+                // Handle unsuccessful deletion
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+    }
+
+    // Method to add a record to Airtable
+    private void addRecordToAirtable(String doctorName, String patientName, String time, String clinicName, String date) {
+        String apiKey = "YOUR_API_KEY";
+        String baseId = "YOUR_BASE_ID";
+        String tableName = "Appointment";
+        String url = "https://api.airtable.com/v0/" + baseId + "/" + tableName;
+
+        OkHttpClient client = new OkHttpClient();
+
+        // Create JSON body for the new record
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        String jsonBody = "{\"fields\": {\"Doctor\": \"" + doctorName + "\", \"Patient\": \"" + patientName + "\", \"Time\": \"" + time + "\", \"Clinic\": \"" + clinicName + "\", \"Date\": \"" + date + "\"}}";
+        RequestBody requestBody = RequestBody.create(jsonBody, JSON);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .post(requestBody)
+                .addHeader("Authorization", "Bearer " + apiKey)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        try {
+            Response response = client.newCall(request).execute();
+            if (response.isSuccessful()) {
+                // Record successfully added
+            } else {
+                // Handle unsuccessful addition
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+    }
+
+    private void addRecordToAirtableAndDeleteFromRequests(String doctorName, String patientName, String time, String clinicName, String date, String recordId) {
+        String apiKey = "YOUR_API_KEY";
+        String baseId = "YOUR_BASE_ID";
+        String requestsTableName = "Requests";
+        String appointmentsTableName = "Appointment";
+        String requestsUrl = "https://api.airtable.com/v0/" + baseId + "/" + requestsTableName;
+        String appointmentsUrl = "https://api.airtable.com/v0/" + baseId + "/" + appointmentsTableName;
+
+        OkHttpClient client = new OkHttpClient();
+
+        // Create JSON body for the new record in the Appointment table
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");
+        String jsonBody = "{\"fields\": {\"Doctor\": \"" + doctorName + "\", \"Patient\": \"" + patientName + "\", \"Time\": \"" + time + "\", \"Clinic\": \"" + clinicName + "\", \"Date\": \"" + date + "\"}}";
+        RequestBody requestBody = RequestBody.create(jsonBody, JSON);
+
+        // Create request to add record to Appointment table
+        Request addRequest = new Request.Builder()
+                .url(appointmentsUrl)
+                .post(requestBody)
+                .addHeader("Authorization", "Bearer " + apiKey)
+                .addHeader("Content-Type", "application/json")
+                .build();
+
+        try {
+            // Execute request to add record to Appointment table
+            Response addResponse = client.newCall(addRequest).execute();
+            if (addResponse.isSuccessful()) {
+                // Record successfully added to Appointment table
+                // Now delete the record from the Requests table
+                deleteRecordFromAirtable(recordId);
+            } else {
+                // Handle unsuccessful addition to Appointment table
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            // Handle exception
+        }
+    }
+
 }

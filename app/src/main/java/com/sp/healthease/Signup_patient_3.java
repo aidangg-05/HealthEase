@@ -35,7 +35,7 @@ public class Signup_patient_3 extends AppCompatActivity {
         String tableName = "Patient Registration";
 
         // Retrieve the PatientData object from the intent
-        PatientData patientData = (PatientData) getIntent().getSerializableExtra("patientData");
+        PatientData patientData = getIntent().getParcelableExtra("patientData");
 
         bloodgroupp = findViewById(R.id.dropdown_bloodgroupPatient);
         medicalhistoryp = findViewById(R.id.medicalhist_signup_patient);

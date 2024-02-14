@@ -37,7 +37,8 @@ public class Signup_doctor3 extends AppCompatActivity {
         String tableName = "Doctor Registration";
 
         // Retrieve the PatientData object from the intent
-        doctorData = (DoctorData) getIntent().getSerializableExtra("doctorData");
+        doctorData = getIntent().getParcelableExtra("doctorData");
+
 
         bloodgroupp = findViewById(R.id.fullname_signup_doc);
         medicalhistoryp = findViewById(R.id.telegramid_signup_doc);

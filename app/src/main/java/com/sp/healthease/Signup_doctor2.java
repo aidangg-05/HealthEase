@@ -18,7 +18,14 @@ public class Signup_doctor2 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sign_upfor_doc_pt2);
 
-        doctorData = (DoctorData) getIntent().getSerializableExtra("doctorData");
+        doctorData = getIntent().getParcelableExtra("doctorData");
+
+        // Ensure that doctorData is not null before using it
+        if (doctorData != null) {
+            // Your existing code here
+        } else {
+            Log.e("Signup_doctor2", "DoctorData object is null");
+        }
 
         fieldp = findViewById(R.id.dropdown_fieldDoc);
         clinicp = findViewById(R.id.dropdown_clinicDoc);
