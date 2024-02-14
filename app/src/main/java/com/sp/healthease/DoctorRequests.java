@@ -205,12 +205,31 @@ public class DoctorRequests extends Fragment {
             TextView timeTextView;
             TextView dateTextView;
 
+            MaterialButton acceptbtn;
+            MaterialButton rejectbtn;
+
             public AppointmentViewHolder(@NonNull View itemView) {
                 super(itemView);
                 patientNameTextView = itemView.findViewById(R.id.requestsPatientName);
                 timeTextView = itemView.findViewById(R.id.requestsTime);
                 dateTextView = itemView.findViewById(R.id.requestsdate);
+                acceptbtn = itemView.findViewById(R.id.requestsAcceptbtn);
+                rejectbtn = itemView.findViewById(R.id.requestsrejectbtn);
+                acceptbtn.setOnClickListener(Accept);
+                rejectbtn.setOnClickListener(Reject);
             }
+            private View.OnClickListener Accept = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            };
+            private View.OnClickListener Reject = new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            };
         }
     }
 
