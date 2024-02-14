@@ -321,5 +321,4 @@ public class DoctorRequests extends Fragment {
             }
         }.execute();
     }
-
 }

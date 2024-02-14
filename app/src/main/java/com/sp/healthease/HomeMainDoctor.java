@@ -1,6 +1,8 @@
 package com.sp.healthease;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.widget.Button;
@@ -16,6 +18,7 @@ import android.util.Log;
 
 
 public class HomeMainDoctor extends Fragment {
+    private static final String PREF_DOCTOR_NAME = "doctor_name";
     CardView telegramBtn;
     private DoctorData doctorData;
 
@@ -40,7 +43,7 @@ public class HomeMainDoctor extends Fragment {
                 TextView doctorNameTextView = rootView.findViewById(R.id.username_doctor);
                 doctorNameTextView.setText(doctorData.getFullName());
 
-                // You can similarly use other fields of doctorData to populate UI elements
+
             } else {
                 Log.e("HomeMainDoctor", "DoctorData is null");
             }
@@ -56,6 +59,7 @@ public class HomeMainDoctor extends Fragment {
                 openTelegram();
             }
         });
+
 
         return rootView;
     }
@@ -84,4 +88,5 @@ public class HomeMainDoctor extends Fragment {
         // Check if there's any app that can handle the Intent
         return intent.resolveActivity(pm) != null;
     }
+
 }
