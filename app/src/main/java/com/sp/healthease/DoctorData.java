@@ -1,8 +1,9 @@
 package com.sp.healthease;
 
-import java.io.Serializable;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class DoctorData implements Serializable {
+public class DoctorData implements Parcelable {
     private String email;
     private String password;
     private String field;
@@ -18,6 +19,43 @@ public class DoctorData implements Serializable {
         this.clinic = clinic;
         this.fullName = fullName;
         this.telegram = telegram;
+    }
+
+    // Parcelable implementation
+    protected DoctorData(Parcel in) {
+        email = in.readString();
+        password = in.readString();
+        field = in.readString();
+        clinic = in.readString();
+        fullName = in.readString();
+        telegram = in.readString();
+    }
+
+    public static final Creator<DoctorData> CREATOR = new Creator<DoctorData>() {
+        @Override
+        public DoctorData createFromParcel(Parcel in) {
+            return new DoctorData(in);
+        }
+
+        @Override
+        public DoctorData[] newArray(int size) {
+            return new DoctorData[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(field);
+        dest.writeString(clinic);
+        dest.writeString(fullName);
+        dest.writeString(telegram);
     }
 
     // Getter and Setter methods for each field
@@ -65,7 +103,7 @@ public class DoctorData implements Serializable {
         return telegram;
     }
 
-    public void setTelegram(String age) {
-        this.telegram = age;
+    public void setTelegram(String telegram) {
+        this.telegram = telegram;
     }
 }

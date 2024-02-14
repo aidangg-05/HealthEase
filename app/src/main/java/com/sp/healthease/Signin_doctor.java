@@ -60,7 +60,7 @@ public class Signin_doctor extends AppCompatActivity {
 
         // Construct the request body with user data
         RequestBody requestBody = new FormBody.Builder()
-                .add("filterByFormula", "AND({Email}='" + email + "', {Password}='" + password + "')")
+                .add("filterByFormula", "AND({Email}='" + email + "')") // Filter by email
                 .build();
 
         // Make the GET request to Airtable
@@ -98,26 +98,36 @@ public class Signin_doctor extends AppCompatActivity {
                                 Toast.makeText(Signin_doctor.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                             });
                         } else {
-                            // Iterate over records and check email and password
+                            // Iterate over the records
                             for (int i = 0; i < records.length(); i++) {
                                 JSONObject record = records.getJSONObject(i);
                                 JSONObject fields = record.getJSONObject("fields");
 
-                                String recordEmail = fields.getString("Email");
-                                String recordPassword = fields.getString("Password");
+                                // Extract password from the record
+                                String recordPassword = fields.optString("Password");
 
-                                if (email.equals(recordEmail) && password.equals(recordPassword)) {
-                                    // Authentication successful, navigate to the next activity
-                                    runOnUiThread(() -> {
-                                        Intent intent = new Intent(Signin_doctor.this, Home_doctor.class);
-                                        startActivity(intent);
-                                        finish(); // Finish the current activity
-                                    });
+                                // Check if the entered password matches the password from the record
+                                if (password.equals(recordPassword)) {
+                                    // Passwords match, proceed with authentication
+                                    String fullName = fields.optString("Full_Name");
+                                    String field = fields.optString("Field");
+                                    String clinic = fields.optString("Clinic");
+                                    String telegram = fields.optString("Telegram");
+
+                                    // Create DoctorData object
+                                    DoctorData doctorData = new DoctorData(email, password, field, clinic, fullName, telegram);
+
+                                    // Inflate data
+                                    inflateData(doctorData);
+
+                                    // Finish the current activity
+                                    finish();
+
+                                    // Exit the loop as authentication is successful
                                     return;
                                 }
                             }
-
-                            // No matching email and password found, show error toast
+                            // If no matching password is found
                             runOnUiThread(() -> {
                                 Toast.makeText(Signin_doctor.this, "Invalid email or password", Toast.LENGTH_SHORT).show();
                             });
@@ -132,5 +142,26 @@ public class Signin_doctor extends AppCompatActivity {
         });
     }
 
+
+
+
+    private void inflateData(DoctorData doctorData) {
+        // Log doctor data
+        Log.d("DoctorData", "Doctor Data: " +
+                "Full Name: " + doctorData.getFullName() + ", " +
+                "Email: " + doctorData.getEmail() + ", " +
+                "Password: " + doctorData.getPassword() + ", " +
+                "Field: " + doctorData.getField() + ", " +
+                "Clinic: " + doctorData.getClinic() + ", " +
+                "Telegram: " + doctorData.getTelegram());
+
+        // Start new activity with inflated data
+        Intent intent = new Intent(Signin_doctor.this, Home_doctor.class);
+        // Pass doctor data to the new activity
+        intent.putExtra("doctorData", doctorData);
+        startActivity(intent);
+        // Finish the current activity
+        finish();
+    }
 
 }
