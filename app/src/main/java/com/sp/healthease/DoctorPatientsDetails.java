@@ -118,7 +118,6 @@ public class DoctorPatientsDetails extends Fragment {
             String bloodGroup = fields.getString("Blood_Group");
             String medicalHistory = fields.getString("Medical_History");
 
-            // Create PatientContacts object and add to list
             PatientContacts patientContacts = new PatientContacts();
             patientContacts.fullName = fullName;
             patientContacts.age = age;
