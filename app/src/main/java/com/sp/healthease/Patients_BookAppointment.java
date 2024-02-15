@@ -17,6 +17,11 @@ import android.util.Log;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import okhttp3.MediaType;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.widget.Toast;
+import android.content.IntentFilter;
 
 import com.google.android.material.button.MaterialButton;
 import org.json.JSONArray;
@@ -35,7 +40,13 @@ import okhttp3.Response;
 import java.util.Date;
 import java.text.SimpleDateFormat;
 import okhttp3.RequestBody;
-
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import androidx.core.app.NotificationCompat;
 import android.util.Log;
 
 public class Patients_BookAppointment extends Fragment {
@@ -56,8 +67,15 @@ public class Patients_BookAppointment extends Fragment {
         MaterialButton submitButton = view.findViewById(R.id.booking_submitbtn);
         clinicNameTextView = view.findViewById(R.id.clinicName);
         doctorDropdown = view.findViewById(R.id.dropdowndocselection);
-        appointmentTime =view.findViewById(R.id.dropdowntimeselection);
+        appointmentTime = view.findViewById(R.id.dropdowntimeselection);
         doctors = new ArrayList<>();
+
+        // Create the custom broadcast receiver
+        CustomBroadcastReceiver receiver = new CustomBroadcastReceiver();
+
+        // Register the broadcast receiver
+        IntentFilter filter = new IntentFilter("com.sp.healthease.REQUEST_SENT");
+        requireContext().registerReceiver(receiver, filter);
 
         submitButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -93,10 +111,12 @@ public class Patients_BookAppointment extends Fragment {
 
                 // Log or use the userInput as needed
                 Log.d("UserInput", userInput);
+
+                // Send broadcast when the submit button is clicked
+                Intent intent = new Intent("com.sp.healthease.REQUEST_SENT");
+                requireContext().sendBroadcast(intent);
             }
         });
-
-
 
         // Get marker title from arguments bundle
         Bundle bundle = getArguments();
@@ -121,7 +141,35 @@ public class Patients_BookAppointment extends Fragment {
         return view;
     }
 
+    public class CustomBroadcastReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            // Show a notification when the broadcast is received
+            showNotification(context);
+        }
+    }
 
+    private void showNotification(Context context) {
+        // Create a notification builder
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "default")
+                .setSmallIcon(R.drawable.doc_messagesimg)
+                .setContentTitle("Appointment Request")
+                .setContentText("Your appointment request has been sent.")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
+
+        // Get the notification manager
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Check if Android version is Oreo or higher
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Create a notification channel
+            NotificationChannel channel = new NotificationChannel("default", "Appointment Notifications", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
+        // Show the notification
+        notificationManager.notify(0, builder.build());
+    }
 
     private void fetchDataFromAirtable(String clinicName) {
         String apiKey = "pat9g6F7LvXbnFNcC.dde538f123da8f01fd5b9b83ac243b1f283f37500f887a0f6975767f562a62fb";
