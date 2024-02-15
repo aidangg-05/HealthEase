@@ -4,16 +4,25 @@
     <string-array name="blood_group_options">
         <item>A</item>
         <item>A+</item>
+        <item>AB+</item>
+        <item>AB-</item>
+        <item>O+</item>
+        <item>O-</item>
     </string-array>
 
     <string-array name="field_options">
         <item>Dermatologist</item>
         <item>Cardiology</item>
+        <item>Radiologist</item>
+        <item>Dermatology</item>
+        <item>Allergist</item>
     </string-array>
 
     <string-array name="clinic_options">
         <item>Pheonix Medical Group</item>
         <item>Raffles Medical</item>
+        <item>Healthy U Medical</item>
+        <item>Advent Time Medical</item>
     </string-array>
 
     <string-array name="dropdowntimeselection">
