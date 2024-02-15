@@ -63,7 +63,7 @@ public class Home_patient extends AppCompatActivity {
             } else if (itemId == R.id.menu_doc_patient) {
                 replaceFragment(new Patients_DoctorContact());
             } else if (itemId == R.id.menu_profile_patient) {
-                replaceFragment(new Patients_About());
+                replaceFragment(new PatientProfile());
             }
             return true;
         });

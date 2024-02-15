@@ -49,7 +49,7 @@ public class Home_doctor extends AppCompatActivity {
                 } else if (itemId == R.id.menu_requests_doc) {
                     replaceFragment(new DoctorRequests());
                 } else if (itemId == R.id.menu_profile_doc) {
-                    replaceFragment(new DoctorAbout());
+                    replaceFragment(new DoctorProfile());
                 }
                 return true;
             });

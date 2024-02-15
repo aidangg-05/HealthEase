@@ -8,9 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class Patients_About extends Fragment {
+public class PatientProfile extends Fragment {
 
-    public Patients_About() {
+    public PatientProfile() {
         // Required empty public constructor
     }
 
@@ -23,6 +23,7 @@ public class Patients_About extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_patients__about, container, false);
+        View view = inflater.inflate(R.layout.fragment_patient_profile, container, false);
+        return view;
     }
 }
