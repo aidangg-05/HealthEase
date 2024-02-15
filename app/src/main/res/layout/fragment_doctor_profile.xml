@@ -92,22 +92,23 @@
             android:id="@+id/change_password_doc"
             android:layout_width="344dp"
             android:layout_height="54dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/rounded_edittext"
             android:elevation="10dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.597"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textpass"
             app:shapeAppearanceOverlay="@style/RoundedCorners"
             app:strokeColor="@color/black"
             app:strokeWidth="2dp"
-            tools:ignore="MissingConstraints"
-            tools:layout_editor_absoluteY="394dp" />
+            tools:ignore="MissingConstraints" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/changedetailsbtndoc"
             android:layout_width="274dp"
             android:layout_height="50dp"
-            android:layout_marginTop="92dp"
+            android:layout_marginTop="76dp"
             android:backgroundTint="#FFFFFF"
             android:elevation="15dp"
             android:text="CHANGE"
