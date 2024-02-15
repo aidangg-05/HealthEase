@@ -204,7 +204,7 @@ public class Patients_DoctorContact extends Fragment {
                 if (isTelegramInstalled()) {
                     // If Telegram is installed, create an Intent to launch it
                     Intent intent = new Intent(Intent.ACTION_VIEW);
-                    intent.setData(Uri.parse("https://telegram.me/"));
+                    intent.setData(Uri.parse("https://telegram.me/aidngg"));
                     startActivity(intent);
                 } else {
                     // If Telegram is not installed, display a toast message

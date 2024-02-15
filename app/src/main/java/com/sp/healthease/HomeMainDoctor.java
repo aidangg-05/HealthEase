@@ -10,6 +10,9 @@ import android.widget.Toast;
 import androidx.cardview.widget.CardView;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +60,18 @@ public class HomeMainDoctor extends Fragment {
             @Override
             public void onClick(View v) {
                 openTelegram();
+            }
+        });
+
+        CardView upcomingappint = rootView.findViewById(R.id.DoctorViewUpComingAppoint);
+
+        upcomingappint.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.doctor_framelayout, new DoctorUpcomingAppointment());
+                fragmentTransaction.commit();
             }
         });
 

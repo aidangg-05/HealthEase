@@ -80,20 +80,6 @@ public class HomeMain_patient extends Fragment {
         CardView appointmentCardView = rootView.findViewById(R.id.cardView_appointment);
         CardView dietCardView = rootView.findViewById(R.id.cardView_diets);
 
-        appointmentCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToAppointment();
-            }
-        });
-
-        dietCardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                navigateToDiets();
-            }
-        });
-
         return rootView;
     }
 
@@ -119,19 +105,5 @@ public class HomeMain_patient extends Fragment {
             appointmentDate = savedInstanceState.getString("appointmentDate");
             appointmentTime = savedInstanceState.getString("appointmentTime");
         }
-    }
-
-    private void navigateToAppointment() {
-        FragmentManager fragmentManager = getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.patient_framelayout, new appointmentPatient());
-        fragmentTransaction.commit();
-    }
-
-    private void navigateToDiets() {
-        FragmentManager fragmentManager = getParentFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.patient_framelayout, new dietsPatients());
-        fragmentTransaction.commit();
     }
 }

@@ -104,12 +104,13 @@
                             android:id="@+id/appointment_location"
                             android:layout_width="282dp"
                             android:layout_height="57dp"
-                            android:layout_marginTop="184dp"
+                            android:layout_marginTop="172dp"
                             android:fontFamily="@font/montserrat_medium"
                             android:textColor="@color/black"
                             android:textSize="15dp"
                             android:textStyle="bold"
                             app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.529"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 

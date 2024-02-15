@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/yellowballs">
 
     <ImageView
@@ -20,7 +20,7 @@
         android:id="@+id/Doc_signin"
         android:layout_width="241dp"
         android:layout_height="55dp"
-        android:layout_marginTop="264dp"
+        android:layout_marginTop="276dp"
         android:backgroundTint="#FFFFFF"
         android:text="Sign-in as Doctor"
         android:textColor="#000000"
@@ -46,15 +46,15 @@
         android:id="@+id/Patient_signin"
         android:layout_width="241dp"
         android:layout_height="55dp"
-        android:layout_marginBottom="264dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#FFFFFF"
         android:text="Sign-in as Patient"
         android:textColor="#000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Doc_signin"
-        app:layout_constraintVertical_bias="1.0"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4"
+        app:layout_constraintVertical_bias="0.012"
         app:strokeColor="#837D7D"
         app:strokeWidth="2dp"
         tools:ignore="MissingConstraints" />

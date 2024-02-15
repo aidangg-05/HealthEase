@@ -65,8 +65,9 @@
                             android:layout_marginTop="16dp"
                             android:fontFamily="@font/montserrat_medium"
                             android:textColor="@color/black"
-                            android:textSize="15dp"
+                            android:textSize="22dp"
                             android:textStyle="bold"
+                            android:text="Name: Dash Diet"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintHorizontal_bias="0.19"
                             app:layout_constraintStart_toStartOf="parent"
@@ -81,6 +82,7 @@
                             android:textColor="@color/black"
                             android:textSize="15dp"
                             android:textStyle="bold"
+                            android:text="The Dietary Approaches to Stop Hypertension or the DASH diet is a diet to control hypertension promoted by the U.S.-based National Heart, Lung, and Blood Institute, part of the National Institutes of Health (NIH), an agency of the United States Department of Health and Human Services. The DASH diet is rich in fruits, vegetables, whole grains, and low-fat dairy foods. It includes meat, fish, poultry, nuts, and beans, and is limited in sugar-sweetened foods and beverages, red meat, and added fats. In addition to its effect on blood pressure, it is designed to be a well-balanced approach to eating for the general public. -"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
